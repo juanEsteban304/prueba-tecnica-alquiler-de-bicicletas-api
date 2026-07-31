@@ -5,27 +5,21 @@ import java.util.Map;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import co.com.ceiba.alquilerbicicletas.domain.exception.BicicletaNoDisponibleException;
+
 @RestControllerAdvice
 @Order(1)
-public class ValidacionHandler extends BaseExceptionHandler {
+public class BicicletaNoDisponibleHandler extends BaseExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(BicicletaNoDisponibleException.class)
     public ResponseEntity<Map<String, String>> manejar(
-            MethodArgumentNotValidException ex) {
-
-        String mensaje = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .findFirst()
-                .map(error -> error.getDefaultMessage())
-                .orElse("Datos inválidos");
+            BicicletaNoDisponibleException ex) {
 
         return construirRespuestaError(
-                mensaje,
+                ex.getMessage(),
                 HttpStatus.BAD_REQUEST
         );
     }
