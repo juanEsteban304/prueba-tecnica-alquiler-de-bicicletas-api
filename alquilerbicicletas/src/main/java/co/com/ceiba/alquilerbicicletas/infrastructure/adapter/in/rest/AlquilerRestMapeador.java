@@ -23,7 +23,12 @@ public class AlquilerRestMapeador {
         return new AlquilerDTO(
             alquiler.getBicicleta().getCodigo(),
             alquiler.getNombreCliente(),
-            alquiler.getDuracionEstimada()
-        );
+            alquiler.getDuracionEstimada(),
+            alquiler.getHoraInicio(),
+            alquiler.getHoraFin(),
+            alquiler.getTiempoRealUso(),
+            alquiler.getCostoBase(),
+            alquiler.getMulta(),
+            alquiler.getCostoTotal());
     }
 }

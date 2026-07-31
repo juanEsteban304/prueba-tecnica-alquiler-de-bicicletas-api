@@ -1,5 +1,6 @@
 package co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -25,28 +26,45 @@ public class AlquilerEntidad {
                 nullable = false)
     private BicicletaEntidad bicicleta;
 
-    @Column(nullable = false)
+    @Column(name = "nombre_cliente",nullable = false)
     private String nombreCliente;
 
-    @Column(nullable = false)
+    @Column(name = "hora_inicio", nullable = false)
     private LocalDateTime horaInicio;
 
-    @Column(nullable = false)
+    @Column(name = "duracion_estimada", nullable = false)
     private Integer duracionEstimada;
 
-    @Column
+    @Column(name = "hora_fin")
     private LocalDateTime horaFin;
+
+    @Column(name = "tiempo_real_uso")
+    private Integer tiempoRealUso;
+
+    @Column(name = "Costo_base")
+    private BigDecimal costoBase;
+
+    @Column(name = "multa")
+    private BigDecimal multa;
+
+    @Column(name = "costo_total")
+    private BigDecimal costoTotal;
 
     public AlquilerEntidad() {
     }
 
     public AlquilerEntidad(BicicletaEntidad bicicleta, String nombreCliente, LocalDateTime horaInicio,
-                           Integer duracionEstimada, LocalDateTime horaFin) {
+                           Integer duracionEstimada, LocalDateTime horaFin, Integer tiempoRealUso ,
+                           BigDecimal costoBase,BigDecimal multa, BigDecimal costoTotal) {
         this.bicicleta = bicicleta;
         this.nombreCliente = nombreCliente;
         this.horaInicio = horaInicio;
         this.duracionEstimada = duracionEstimada;
         this.horaFin = horaFin;
+        this.tiempoRealUso = tiempoRealUso;
+        this.costoBase = costoBase;
+        this.multa = multa;
+        this.costoTotal = costoTotal;
     }
 
     public Long getId() {
@@ -91,5 +109,37 @@ public class AlquilerEntidad {
 
     public void setHoraFin(LocalDateTime horaFin) {
         this.horaFin = horaFin;
+    }
+
+    public Integer getTiempoRealUso() {
+        return tiempoRealUso;
+    }
+
+    public void setTiempoRealUso(Integer tiempRealUso) {
+        this.tiempoRealUso = tiempRealUso;
+    }
+
+    public BigDecimal getCostoBase() {
+        return costoBase;
+    }
+
+    public void setCostoBase(BigDecimal costoBase) {
+        this.costoBase = costoBase;
+    }
+
+    public BigDecimal getMulta() {
+        return multa;
+    }
+
+    public void setMulta(BigDecimal multa) {
+        this.multa = multa;
+    }
+
+    public BigDecimal getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(BigDecimal costoTotal) {
+        this.costoTotal = costoTotal;
     }
 }
