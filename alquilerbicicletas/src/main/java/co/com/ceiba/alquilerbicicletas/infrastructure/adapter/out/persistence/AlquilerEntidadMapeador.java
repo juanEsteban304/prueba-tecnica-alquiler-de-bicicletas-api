@@ -19,7 +19,11 @@ public class AlquilerEntidadMapeador {
             alquiler.getNombreCliente(),
             alquiler.getHoraInicio(),
             alquiler.getDuracionEstimada(),
-            alquiler.getHoraFin()
+            alquiler.getHoraFin(),
+            alquiler.getTiempoRealUso(),
+            alquiler.getCostoBase(),
+            alquiler.getMulta(),
+            alquiler.getCostoTotal()
         );
     }
 
@@ -28,6 +32,10 @@ public class AlquilerEntidadMapeador {
         alquilerEntidad.getNombreCliente(),
         alquilerEntidad.getHoraInicio(),
         alquilerEntidad.getDuracionEstimada(),
-        alquilerEntidad.getHoraFin());
+        alquilerEntidad.getHoraFin(),
+        alquilerEntidad.getTiempoRealUso() ,
+        alquilerEntidad.getCostoBase(),
+        alquilerEntidad.getMulta(),
+        alquilerEntidad.getCostoTotal());
     }
 }

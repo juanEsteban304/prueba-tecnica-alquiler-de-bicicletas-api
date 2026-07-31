@@ -4,17 +4,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.com.ceiba.alquilerbicicletas.application.service.AlquilerComandoServicio;
+import co.com.ceiba.alquilerbicicletas.application.service.AlquilerFinalizacionServicio;
 import co.com.ceiba.alquilerbicicletas.application.service.BicicletaCodigoGenerador;
 import co.com.ceiba.alquilerbicicletas.application.service.BicicletaComandoServicio;
 import co.com.ceiba.alquilerbicicletas.application.service.BicicletaValidador;
+import co.com.ceiba.alquilerbicicletas.application.service.CalculadorCostoAlquiler;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerComandoPuerto;
+import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerFinalizacionPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.BicicletaComandoPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.AlquilerRepositorioComandoPuerto;
+import co.com.ceiba.alquilerbicicletas.domain.ports.out.AlquilerRepositorioConsultaPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.BicicletaRepositorioComandoPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.BicicletaRepositorioConsultaPuerto;
 import co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence.AlquilerEntidadMapeador;
 import co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence.AlquilerJpaRepositorio;
+import co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence.AlquilerMapeador;
 import co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence.AlquilerRepositorioAdaptador;
+import co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence.AlquilerRepositorioConsultaAdaptador;
 import co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence.BicicletaJpaRepositorio;
 
 @Configuration
@@ -40,11 +46,12 @@ public class BicicletaBeanConfiguration {
     }
 
     @Bean
-    public AlquilerRepositorioAdaptador alquilerRepositorioAdaptador(
+    public AlquilerRepositorioComandoPuerto alquilerRepositorioComandoPuerto(
         AlquilerJpaRepositorio jpaRepositorio, 
         AlquilerEntidadMapeador entidadMapeador,
-        BicicletaJpaRepositorio bicicletaJpaRepositorio){
-            return new AlquilerRepositorioAdaptador(jpaRepositorio, entidadMapeador, bicicletaJpaRepositorio);
+        BicicletaJpaRepositorio bicicletaJpaRepositorio,
+        AlquilerMapeador alquilerMapeador){
+            return new AlquilerRepositorioAdaptador(jpaRepositorio, entidadMapeador, bicicletaJpaRepositorio,alquilerMapeador);
         }
 
     @Bean
@@ -54,4 +61,33 @@ public class BicicletaBeanConfiguration {
         AlquilerRepositorioComandoPuerto alquilerComando) {
             return new AlquilerComandoServicio(repositorioConsulta,repositorioComando,alquilerComando);
         }
+    
+    @Bean
+    public AlquilerRepositorioConsultaPuerto alquilerRepositorioConsultaPuerto(
+            AlquilerJpaRepositorio jpaRepositorio,
+            AlquilerEntidadMapeador entidadMapeador) {
+
+        return new AlquilerRepositorioConsultaAdaptador(jpaRepositorio, entidadMapeador);
+    }
+
+    @Bean
+    public AlquilerMapeador alquilerMapeador() {
+        return new AlquilerMapeador();
+    }
+
+    @Bean
+    public AlquilerFinalizacionPuerto finalizarAlquiler(
+            AlquilerRepositorioConsultaPuerto repositorioConsulta,
+            AlquilerRepositorioComandoPuerto repositorioComando,
+            BicicletaRepositorioComandoPuerto bicicletaRepositorioComando,
+            CalculadorCostoAlquiler calculadorCosto) {
+
+        return new AlquilerFinalizacionServicio(repositorioConsulta,repositorioComando,bicicletaRepositorioComando,calculadorCosto);
+    }
+
+    @Bean
+    public CalculadorCostoAlquiler calculadorCostoAlquiler() {
+        return new CalculadorCostoAlquiler();
+    }
 }
+ 
