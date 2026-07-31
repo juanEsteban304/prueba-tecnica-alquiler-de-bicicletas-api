@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Pattern;
 
 public class BicicletaDTO {
 
+    private static final String TIPO_INVALIDO = "Tipo inválido. Valores permitidos: URBANA, MONTAÑA, ELECTRICA";
+    private static final String ESTADO_INVALIDO = "Estado inválido. Valores permitidos: DISPONIBLE, ALQUILADA, EN_MANTENIMIENTO -> EN MANTENIMIENTO";
     private static final String ESTADO_OBLIGATORIO = "El Estado de la Bicicleta es obligatorio";
     private static final String TIPO_OBLIGATORIO = "El Tipo de Bicicleta es obligatorio";
 
@@ -13,13 +15,13 @@ public class BicicletaDTO {
     @NotBlank(message = ESTADO_OBLIGATORIO)
     @Pattern(
         regexp = "(?i)^(DISPONIBLE|ALQUILADA|EN(?:_| )MANTENIMIENTO)$",
-        message = "Estado inválido. Valores permitidos: DISPONIBLE, ALQUILADA, EN_MANTENIMIENTO -> EN MANTENIMIENTO") 
+        message = ESTADO_INVALIDO) 
     private String estado;
 
     @NotBlank(message = TIPO_OBLIGATORIO)
     @Pattern(
         regexp = "(?i)URBANA|MONTAÑA|ELECTRICA",
-        message = "Tipo inválido. Valores permitidos: URBANA, MONTAÑA, ELECTRICA")
+        message = TIPO_INVALIDO)
     private String tipo;
 
     public BicicletaDTO() {

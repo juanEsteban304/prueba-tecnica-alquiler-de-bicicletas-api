@@ -8,21 +8,29 @@ import jakarta.validation.constraints.Size;
 
 public class AlquilerDTO {
     
-    @NotBlank(message = "El código de la bicicleta es obligatorio")
+    private static final String MENSAJE_DURACION = "La duración estimada debe ser de al menos 1 hora";
+    private static final String DURACION = "La duración estimada es obligatoria";
+    private static final String CARACTERES_MINIMOS = "El nombre debe tener entre 3 y 100 caracteres";
+    private static final String VALIDACION_NOMBRE = "El nombre solo puede contener letras (a-z, A-z)";
+    private static final String NOMBRE_OBLIGATORIO = "El nombre es obligatorio";
+    private static final String FORMATO_CODIGO = "El código debe tener el formato BIC-001";
+    private static final String CÓDIGO_OBLIGATORIO = "El código de la bicicleta es obligatorio";
+
+    @NotBlank(message = CÓDIGO_OBLIGATORIO)
     @Pattern(
         regexp = "^BIC-\\d{3,}$",
-        message = "El código debe tener el formato BIC-001")
+        message = FORMATO_CODIGO)
     private String codigoBicicleta;
 
-    @NotBlank(message = "El nombre es obligatorio")
+    @NotBlank(message = NOMBRE_OBLIGATORIO)
     @Pattern(
         regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$",
-        message = "El nombre solo puede contener letras (a-z, A-z)")
-    @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
+        message = VALIDACION_NOMBRE)
+    @Size(min = 3, max = 100, message = CARACTERES_MINIMOS)
     private String nombreCliente;
 
-    @NotNull(message = "La duración estimada es obligatoria")
-    @Min(value = 1, message = "La duración estimada debe ser de al menos 1 hora")
+    @NotNull(message = DURACION)
+    @Min(value = 1, message = MENSAJE_DURACION)
     private Integer duracionEstimada;
 
     public AlquilerDTO(){

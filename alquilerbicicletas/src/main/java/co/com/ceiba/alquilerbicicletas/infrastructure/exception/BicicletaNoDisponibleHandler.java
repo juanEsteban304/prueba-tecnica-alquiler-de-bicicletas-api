@@ -8,19 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import co.com.ceiba.alquilerbicicletas.domain.exception.DataNotFoundException;
+import co.com.ceiba.alquilerbicicletas.domain.exception.BicicletaNoDisponibleException;
 
 @RestControllerAdvice
 @Order(1)
-public class DataNotFoundHandler extends BaseExceptionHandler {
+public class BicicletaNoDisponibleHandler extends BaseExceptionHandler {
 
-    @ExceptionHandler(DataNotFoundException.class)
+    @ExceptionHandler(BicicletaNoDisponibleException.class)
     public ResponseEntity<Map<String, String>> manejar(
-            DataNotFoundException ex) {
+            BicicletaNoDisponibleException ex) {
 
         return construirRespuestaError(
                 ex.getMessage(),
-                HttpStatus.NOT_FOUND
+                HttpStatus.BAD_REQUEST
         );
     }
 }

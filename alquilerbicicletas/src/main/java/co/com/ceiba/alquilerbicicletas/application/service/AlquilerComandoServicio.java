@@ -16,7 +16,7 @@ import co.com.ceiba.alquilerbicicletas.domain.ports.out.BicicletaRepositorioCons
 public class AlquilerComandoServicio implements AlquilerComandoPuerto{
     
     private static final String CODIGO_INEXISTENTE = "No existe una bicicleta con el codigo: ";
-    private static final String BICICLETA_NO_DISPONIBLE = "La bicicleta no está disponible para alquiler";
+    private static final String BICICLETA_NO_DISPONIBLE = "La bicicleta %s no está disponible para alquiler";
     private final BicicletaRepositorioConsultaPuerto repositorioConsulta;
     private final BicicletaRepositorioComandoPuerto repositorioComando;
     private final AlquilerRepositorioComandoPuerto alquilerComando;
@@ -37,7 +37,7 @@ public class AlquilerComandoServicio implements AlquilerComandoPuerto{
         alquiler.asignarBicicleta(bicicleta);
         
         if (bicicleta.getEstadoBicicleta() != EstadoBicicleta.DISPONIBLE){
-            throw new BicicletaNoDisponibleException(BICICLETA_NO_DISPONIBLE);
+            throw new BicicletaNoDisponibleException(String.format(BICICLETA_NO_DISPONIBLE, bicicleta.getCodigo()));
         }
         bicicleta.setEstadoBicicleta(EstadoBicicleta.ALQUILADA);
         repositorioComando.guardar(bicicleta);
