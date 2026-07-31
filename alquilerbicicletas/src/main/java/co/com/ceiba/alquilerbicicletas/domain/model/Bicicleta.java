@@ -31,4 +31,8 @@ public class Bicicleta {
     public void setTipoBicicleta(TipoBicicleta tipo) {
         this.tipo = tipo;
     }
+
+    public static Bicicleta crear(String codigo, EstadoBicicleta estado, TipoBicicleta tipo) {
+    return new Bicicleta(codigo, estado, tipo);
+    }
 }
