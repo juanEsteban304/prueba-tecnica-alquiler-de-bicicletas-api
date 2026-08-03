@@ -31,4 +31,9 @@ public class BicicletaRestMapeador {
             .map(this::convertirADTO)
             .toList();
     }
+
+    public EstadoBicicleta convertirEstado(EstadoBicicletaDTO dto) {
+    String estadoNormalizado =dto.getEstado().trim().toUpperCase().replace(" ", "_");
+    return EstadoBicicleta.valueOf(estadoNormalizado);
+}
 }
