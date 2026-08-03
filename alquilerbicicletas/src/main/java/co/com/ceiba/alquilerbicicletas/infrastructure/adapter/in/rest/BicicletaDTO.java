@@ -20,7 +20,7 @@ public class BicicletaDTO {
 
     @NotBlank(message = TIPO_OBLIGATORIO)
     @Pattern(
-        regexp = "(?i)URBANA|MONTAÑA|ELECTRICA",
+        regexp = "^(?i:URBANA|MONTAÑA|montaña|ELECTRICA)$",
         message = TIPO_INVALIDO)
     private String tipo;
 
