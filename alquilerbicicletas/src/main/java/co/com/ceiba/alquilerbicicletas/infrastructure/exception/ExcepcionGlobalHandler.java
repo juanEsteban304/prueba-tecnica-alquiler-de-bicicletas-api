@@ -20,6 +20,10 @@ public class ExcepcionGlobalHandler extends BaseExceptionHandler {
     public ResponseEntity<Map<String, String>> manejarExcepcionGlobal(
             Exception ex) {
 
+                System.err.println("========== ERROR ==========");
+                ex.printStackTrace();
+                System.err.println("===========================");
+
         return construirRespuestaError(
                 ERROR_INTERNO,
                 HttpStatus.INTERNAL_SERVER_ERROR
