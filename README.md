@@ -10,14 +10,14 @@ API REST desarrollada con **Spring Boot** para la gestión del alquiler de bicic
 
 # 📑 Índice
 
-- [Descripción](#descripción)
-- [Tecnologías utilizadas](#tecnologías-utilizadas)
-- [Arquitectura](#arquitectura)
-- [Requisitos previos](#requisitos-previos)
-- [Ejecución del proyecto](#ejecución-del-proyecto)
-- [Endpoints principales](#endpoints-principales)
-- [Ejemplos de peticiones](#ejemplos-de-peticiones)
-- [Pruebas automatizadas](#pruebas-automatizadas)
+- [Descripción](#-descripción)
+- [Tecnologías utilizadas](#-tecnologías-utilizadas)
+- [Arquitectura](#-arquitectura)
+- [Requisitos previos](#-requisitos-previos)
+- [Ejecución del proyecto](#-ejecución-del-proyecto)
+- [Endpoints principales](#-endpoints-principales)
+- [Ejemplos de peticiones](#-ejemplos-de-peticiones)
+- [Pruebas automatizadas](#-pruebas-automatizadas)
 
 ---
 
