@@ -1,5 +1,7 @@
 package co.com.ceiba.alquilerbicicletas.infrastructure.adapter.in.rest;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.alquilerbicicletas.domain.model.Bicicleta;
@@ -16,11 +18,17 @@ public class BicicletaRestMapeador {
         return new Bicicleta(null, estado, tipo);
     }
 
-    public BicicletaDTO convertirADTO(Bicicleta bicicleta){
+    public BicicletaDTO convertirADTO(Bicicleta bicicletas){
         return new BicicletaDTO(
-            bicicleta.getCodigo(),
-            bicicleta.getEstadoBicicleta().name(),
-            bicicleta.getTipoBicicleta().name()
+            bicicletas.getCodigo(),
+            bicicletas.getEstadoBicicleta().name(),
+            bicicletas.getTipoBicicleta().name()
         );
+    }
+
+    public List<BicicletaDTO> convertirADTO(List<Bicicleta> bicicletas) {
+        return bicicletas.stream()
+            .map(this::convertirADTO)
+            .toList();
     }
 }

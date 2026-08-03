@@ -1,10 +1,13 @@
 package co.com.ceiba.alquilerbicicletas.infrastructure.adapter.out.persistence;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.alquilerbicicletas.domain.model.Bicicleta;
+import co.com.ceiba.alquilerbicicletas.domain.model.EstadoBicicleta;
+import co.com.ceiba.alquilerbicicletas.domain.model.TipoBicicleta;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.BicicletaRepositorioComandoPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.BicicletaRepositorioConsultaPuerto;
 
@@ -39,5 +42,15 @@ public class BicicletaRepositorioAdaptador implements BicicletaRepositorioConsul
     @Override
     public Optional<Bicicleta> buscarUltimaBicicleta(){
         return jpaRepositorio.findTopByOrderByCodigoDesc().map(mapeador::convertirADTO);
+    }
+
+    @Override
+    public List<Bicicleta> listar() {
+        return jpaRepositorio.findAll().stream().map(mapeador::convertirADTO).toList();
+    }
+
+    @Override
+    public List<Bicicleta> buscar(String codigo, EstadoBicicleta estado, TipoBicicleta tipo){
+        return jpaRepositorio.findAll(BIcicletaSpecification.buscar(codigo, estado, tipo)).stream().map(mapeador::convertirADTO).toList();
     }
 }
