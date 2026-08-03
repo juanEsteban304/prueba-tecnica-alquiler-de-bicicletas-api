@@ -4,14 +4,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.com.ceiba.alquilerbicicletas.application.service.AlquilerComandoServicio;
+import co.com.ceiba.alquilerbicicletas.application.service.AlquilerConsultaServicio;
 import co.com.ceiba.alquilerbicicletas.application.service.AlquilerFinalizacionServicio;
 import co.com.ceiba.alquilerbicicletas.application.service.BicicletaCodigoGenerador;
 import co.com.ceiba.alquilerbicicletas.application.service.BicicletaComandoServicio;
+import co.com.ceiba.alquilerbicicletas.application.service.BicicletaConsultaServicio;
 import co.com.ceiba.alquilerbicicletas.application.service.BicicletaValidador;
 import co.com.ceiba.alquilerbicicletas.application.service.CalculadorCostoAlquiler;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerComandoPuerto;
+import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerConsultaPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerFinalizacionPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.BicicletaComandoPuerto;
+import co.com.ceiba.alquilerbicicletas.domain.ports.in.BicicletaConsultaPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.AlquilerRepositorioComandoPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.AlquilerRepositorioConsultaPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.out.BicicletaRepositorioComandoPuerto;
@@ -88,6 +92,16 @@ public class BicicletaBeanConfiguration {
     @Bean
     public CalculadorCostoAlquiler calculadorCostoAlquiler() {
         return new CalculadorCostoAlquiler();
+    }
+
+    @Bean
+    public BicicletaConsultaPuerto bicicletaConsultaPuerto(BicicletaRepositorioConsultaPuerto repositorioConsulta) {
+        return new BicicletaConsultaServicio(repositorioConsulta);
+    }
+
+    @Bean
+    public AlquilerConsultaPuerto alquilerConsultaPuerto(AlquilerRepositorioConsultaPuerto repositorioConsulta) {
+        return new AlquilerConsultaServicio(repositorioConsulta);
     }
 }
  

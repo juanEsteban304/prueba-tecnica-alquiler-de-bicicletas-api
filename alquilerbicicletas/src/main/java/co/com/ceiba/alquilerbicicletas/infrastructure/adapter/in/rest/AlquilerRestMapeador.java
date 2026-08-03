@@ -1,5 +1,7 @@
 package co.com.ceiba.alquilerbicicletas.infrastructure.adapter.in.rest;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.alquilerbicicletas.domain.model.Alquiler;
@@ -31,4 +33,10 @@ public class AlquilerRestMapeador {
             alquiler.getMulta(),
             alquiler.getCostoTotal());
     }
+
+    public List<AlquilerDTO> convertirADTO(List<Alquiler> alquileres) {
+        return alquileres.stream()
+            .map(this::convertirADTO)
+            .toList();
+}
 }
