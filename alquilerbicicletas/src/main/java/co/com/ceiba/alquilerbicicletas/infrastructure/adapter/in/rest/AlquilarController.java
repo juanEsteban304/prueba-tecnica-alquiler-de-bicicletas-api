@@ -1,7 +1,10 @@
 package co.com.ceiba.alquilerbicicletas.infrastructure.adapter.in.rest;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.alquilerbicicletas.domain.model.Alquiler;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerComandoPuerto;
+import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerConsultaPuerto;
 import co.com.ceiba.alquilerbicicletas.domain.ports.in.AlquilerFinalizacionPuerto;
 import jakarta.validation.Valid;
 
@@ -20,11 +24,14 @@ public class AlquilarController {
     private final AlquilerComandoPuerto comandoPuerto;
     private final AlquilerRestMapeador mapeador;
     private final AlquilerFinalizacionPuerto finalPuerto;
+    private final AlquilerConsultaPuerto consultaPuerto;
 
-    public AlquilarController(AlquilerComandoPuerto comandoPuerto, AlquilerRestMapeador mapeador, AlquilerFinalizacionPuerto finalPuerto) {
+    public AlquilarController(AlquilerComandoPuerto comandoPuerto, AlquilerRestMapeador mapeador,
+                              AlquilerFinalizacionPuerto finalPuerto, AlquilerConsultaPuerto consultaPuerto) {
         this.comandoPuerto = comandoPuerto;
         this.mapeador = mapeador;
         this.finalPuerto = finalPuerto;
+        this.consultaPuerto = consultaPuerto;
     }
 
     @PostMapping
@@ -41,4 +48,15 @@ public class AlquilarController {
     return ResponseEntity.ok(mapeador.convertirADTO(alquilerFinalizado));
     }
 
+    @GetMapping
+    public ResponseEntity<List<AlquilerDTO>> listar(){
+        List<Alquiler> alquileres = consultaPuerto.listar();
+        return ResponseEntity.ok(mapeador.convertirADTO(alquileres));
+    }
+
+    @GetMapping("/{codigoBicicleta}/historial")
+    public ResponseEntity<List<AlquilerDTO>> historial(@PathVariable String codigoBicicleta) {
+        List<Alquiler> historial = consultaPuerto.buscarHistorial(codigoBicicleta);
+        return ResponseEntity.ok(mapeador.convertirADTO(historial));
+    }
 }
